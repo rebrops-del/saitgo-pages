@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://demo.saitgo.ru/</loc>
+<lastmod>2026-09-24T06:56:05.535Z</lastmod>
+<changefreq>weekly</changefreq>
+<priority>1</priority>
+</url>
+<url>
+<loc>https://demo.saitgo.ru/privacy/</loc>
+<lastmod>2026-09-24T06:56:05.535Z</lastmod>
+<changefreq>yearly</changefreq>
+<priority>0.2</priority>
+</url>
+</urlset>
