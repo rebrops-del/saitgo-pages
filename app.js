@@ -61,6 +61,7 @@ for(const el of document.querySelectorAll('[data-pro-price]'))el.textContent=pro
 const form=$('#checkoutForm');
 const checkoutMessage=$('#checkoutMessage');
 const copyStatus=$('#cardCopyStatus');
+let lastRequestType='order'; // email and payment notice share the same browser fallback
 function inform(text){if(checkoutMessage)checkoutMessage.textContent=text}
 function buyerEmail(){if(!form||!form.reportValidity())return null;return $('#email').value.trim()}
 function makeInquiry(){
@@ -89,16 +90,26 @@ function makePaidReport(){
  'Скриншот перевода не является подтверждением зачисления.'
  ].join(eol)};
 }
-function openMail(order){
+function currentRequest(){
+ return lastRequestType==='paid'?makePaidReport():makeInquiry();
+}
+function openMail(order,type){
  if(!order)return;
+ lastRequestType=type;
  const link='mailto:'+contactEmail+'?subject='+encodeURIComponent(order.subject)+'&body='+encodeURIComponent(order.body);
- inform('Откроется письмо в вашей почтовой программе. Для отправки нажмите «Отправить» самостоятельно. Если приложение не открывается, используйте «Скопировать текст заявки». Платёж и выдача файла здесь не автоматизированы.');
+ inform('Письмо откроется в почтовой программе. Отправьте его самостоятельно. Если письмо не открывается, нажмите «Отправить через Gmail в браузере» или «Скопировать текст заявки». Сообщение о переводе не означает подтверждения платежа.');
  window.location.href=link;
 }
-form?.addEventListener('submit',e=>{e.preventDefault();openMail(makeInquiry())});
-$('#paidReport')?.addEventListener('click',()=>openMail(makePaidReport()));
+form?.addEventListener('submit',e=>{e.preventDefault();openMail(makeInquiry(),'order')});
+$('#paidReport')?.addEventListener('click',()=>openMail(makePaidReport(),'paid'));
+$('#gmailCompose')?.addEventListener('click',()=>{
+ const order=currentRequest();if(!order)return;
+ const address='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(contactEmail)+'&su='+encodeURIComponent(order.subject)+'&body='+encodeURIComponent(order.body);
+ inform('Открываем подготовленное письмо Gmail. Войдите в свою почту и нажмите «Отправить». Сайт не получает сведения о том, что вы отправили письмо или оплатили заказ.');
+ window.open(address,'_blank','noopener,noreferrer');
+});
 $('#copyRequest')?.addEventListener('click',async()=>{
- const order=makeInquiry();if(!order)return;
+ const order=currentRequest();if(!order)return;
  const full=['Кому: '+contactEmail,'Тема: '+order.subject,'',order.body].join(eol);
  try{if(!navigator.clipboard?.writeText)throw Error('unavailable');await navigator.clipboard.writeText(full);inform('Заявка скопирована. Отправьте её самостоятельно на '+contactEmail+'.')}catch(e){inform('Не удалось скопировать автоматически. Напишите на '+contactEmail+' с темой «'+order.subject+'».')}
 });
