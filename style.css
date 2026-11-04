@@ -217,3 +217,19 @@ textarea{resize:vertical;min-height:100px}
 .preview-table tbody tr:first-child td:last-child{color:#61735b}
 .preview-foot{border-top:1px solid #e9e5dd;padding:13px 17px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:#788087;font-size:9px;line-height:1.5;letter-spacing:.025em}
 @media(max-width:600px){.preview-top{align-items:flex-start;flex-direction:column;gap:6px;padding:13px}.preview-foot{flex-direction:column;gap:3px}.pro-preview{margin-top:22px}}
+
+/* Custom STO spreadsheet implementation: separate from fixed-price PRO */
+.custom-setup{padding:74px 0;background:#f6f3eb;border-top:1px solid #e5e0d6;border-bottom:1px solid #e5e0d6}
+.custom-setup-inner{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(270px,.7fr);gap:55px;align-items:center}
+.custom-setup h2{font-size:clamp(32px,4.6vw,51px);line-height:1.12;letter-spacing:-.05em;margin:15px 0 20px}
+.custom-setup h2 em{font-style:normal;color:#9d7752}
+.custom-setup-copy p{max-width:600px;color:#6b7379;font-size:15px;line-height:1.8}
+.custom-facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:23px}
+.custom-facts span{padding:8px 11px;border:1px solid #d9d5cd;background:#fcfaf7;font-size:11px;font-weight:650;color:#5e6870}
+.custom-setup-action{padding:30px;border:1px solid #e3ded4;background:#fffefa;box-shadow:0 17px 45px #17232e0c}
+.custom-label{font-size:10px;color:#a47b50;font-weight:800;letter-spacing:.11em;margin-bottom:14px}
+.custom-setup-action strong{display:block;font-size:21px;letter-spacing:-.035em}
+.custom-setup-action p{font-size:12px;line-height:1.75;margin:9px 0 21px;color:#67747b}
+.custom-setup-action .button{display:block;text-align:center;font-size:12px}
+.custom-gmail{display:block;font-size:11px;color:#715d48;text-align:center;margin-top:14px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:820px){.custom-setup-inner{grid-template-columns:1fr;gap:22px}.custom-setup{padding:50px 0}.custom-setup-action{padding:25px}}
