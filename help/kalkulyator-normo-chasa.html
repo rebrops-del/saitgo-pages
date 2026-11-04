@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Калькулятор нормо-часа автосервиса онлайн — СТОБланк</title>
+<meta name="description" content="Бесплатно рассчитайте стоимость нормо-часа в автосервисе по расходам, загрузке и целевой рентабельности. Рассчитайте цену работ для сметы.">
+<link rel="canonical" href="https://stoblank-beta.onrender.com/help/kalkulyator-normo-chasa.html">
+<link rel="icon" href="../favicon.svg">
+<meta property="og:title" content="Калькулятор нормо-часа СТО — СТОБланк">
+<meta property="og:description" content="Проверьте, покрывает ли стоимость часа работу мастерской. Без регистрации и передачи введённых данных.">
+<style>
+:root{--ink:#17232e;--muted:#6c777c;--line:#e5e1d9;--gold:#ae8657;--paper:#f8f6f1}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}
+header{background:#17232e;color:#fff}header .wrap{min-height:75px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.wrap{max-width:1120px;margin:auto;padding:0 24px}header .logo{text-decoration:none;font-weight:800;letter-spacing:.07em;font-size:19px}header .logo span{color:#c9aa7c}header .nav{text-decoration:none;border:1px solid #63717b;border-radius:4px;padding:9px 13px;font-size:12px}
+.hero{padding:64px 0 36px}.eyebrow{font-size:11px;color:#977349;letter-spacing:.13em;font-weight:800}.hero h1{max-width:800px;font-size:clamp(37px,6vw,68px);letter-spacing:-.055em;line-height:1.09;margin:16px 0 20px}.hero h1 em{color:#9f7950;font-style:normal}.hero p{font-size:17px;max-width:720px;color:#576671}
+.layout{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(280px,.96fr);gap:25px;align-items:start;padding-bottom:60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:28px;box-shadow:0 18px 65px #17232e08}h2{font-size:24px;letter-spacing:-.035em;line-height:1.28;margin:0 0 20px}label{display:block;font-size:12px;font-weight:700;color:#53616a;margin:17px 0 8px}.tip{font-size:11px;line-height:1.5;color:#7b858b;margin-top:5px}.field{display:flex;align-items:center;border:1px solid #d9dcda;border-radius:4px;overflow:hidden;background:#fafaf9}.field input{width:100%;border:0;outline:0;padding:12px 13px;background:transparent;color:var(--ink);font:600 18px/1.2 inherit;font-size:18px}.field span{padding:10px 15px;color:#7b858b;background:#f4f4f1;border-left:1px solid #d9dcda;white-space:nowrap}.field:focus-within{border-color:#a4835f;box-shadow:0 0 0 3px #b89a741a}.hint{background:#eef1ed;border-left:3px solid #9fb19a;padding:12px 15px;font-size:12px;color:#455451;margin-bottom:17px}
+.metric{background:#1b2832;border-radius:5px;color:#fff;padding:28px;margin-bottom:16px}.metric small{font-size:11px;letter-spacing:.09em;color:#c8b89f;font-weight:700}.metric strong{font-size:clamp(37px,5vw,58px);letter-spacing:-.065em;display:block;margin:6px 0}.metric p{font-size:12px;color:#b4c0c5;margin:0}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f4f5f2;padding:14px;border:1px solid #e8e9e5;border-radius:3px}.stat span{font-size:11px;color:#718085;display:block}.stat strong{font-size:17px;display:block;margin:2px 0;font-variant-numeric:tabular-nums}.outputnote{font-size:12px;color:#748087;margin-top:15px}.cta{display:block;margin-top:24px;text-align:center;background:#ae8657;color:#fff;padding:14px;text-decoration:none;font-weight:800;border-radius:3px;font-size:14px}.cta:hover{background:#89673e}
+.article{max-width:830px;padding-bottom:90px}.article h2{margin:38px 0 14px}.article p,.article li{color:#52616a}.article li{margin:11px 0}.article ul{padding-left:20px}footer{padding:34px 0;background:#17232e;color:#aab8be;font-size:12px}footer a{color:#dfc49d}.error{color:#9d3d35;font-weight:700;min-height:20px;font-size:12px;margin-top:10px}.sep{border-top:1px solid var(--line);margin:23px 0 10px}
+@media(max-width:780px){.layout{grid-template-columns:1fr}.hero{padding-top:42px}.card{padding:22px}.wrap{padding:0 18px}}@media(max-width:410px){.stats{grid-template-columns:1fr}.hero h1{font-size:37px}.metric strong{font-size:37px}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="../index.html">СТО<span>БЛАНК</span></a><a class="nav" href="../index.html#editor">Заказ-наряд бесплатно ↗</a></div></header>
+<main>
+<div class="wrap hero"><div class="eyebrow">БЕСПЛАТНЫЙ ИНСТРУМЕНТ · ДЛЯ РУКОВОДИТЕЛЯ СТО</div>
+<h1>Сколько должен стоить <em>нормо-час?</em></h1>
+<p>Рассчитайте ориентировочную минимальную цену часа работы по расходам мастерской, загрузке и желаемой доле прибыли. Можно менять цифры и сразу видеть результат.</p></div>
+<div class="wrap layout">
+<section class="card" aria-labelledby="formtitle"><h2 id="formtitle">Данные вашей мастерской</h2>
+<div class="hint">По умолчанию заполнены <strong>условные примерные значения</strong>. Замените их фактическими расходами. Данные не передаются на сервер.</div>
+<label for="payroll">Затраты на персонал в месяц</label><div class="field"><input type="number" id="payroll" min="0" max="100000000" step="1000" value="180000" inputmode="numeric"><span>₽</span></div>
+<label for="rent">Аренда и коммунальные расходы</label><div class="field"><input type="number" id="rent" min="0" max="100000000" step="1000" value="70000" inputmode="numeric"><span>₽</span></div>
+<label for="other">Прочие расходы за месяц</label><div class="field"><input type="number" id="other" min="0" max="100000000" step="1000" value="40000" inputmode="numeric"><span>₽</span></div>
+<div class="tip">Оборудование, связь, расходники, административные и другие затраты, если они не учтены выше.</div>
+<label for="hours">Оплачиваемых клиентами нормо-часов в месяц</label><div class="field"><input type="number" id="hours" min="1" max="100000" step="1" value="320" inputmode="numeric"><span>ч</span></div>
+<div class="tip">Не календарные часы присутствия, а часы работ, которые реально удастся продать клиентам.</div>
+<label for="margin">Желаемая доля прибыли от выручки</label><div class="field"><input type="number" id="margin" min="0" max="90" step="1" value="20" inputmode="numeric"><span>%</span></div>
+<div class="sep"></div>
+<label for="jobhours">Пример: сколько часов занимает конкретная работа?</label><div class="field"><input type="number" id="jobhours" min="0.1" max="1000" step="0.5" value="2.5" inputmode="decimal"><span>ч</span></div>
+<div class="error" id="formerror" role="status"></div>
+</section>
+<section class="card" aria-labelledby="resulttitle"><h2 id="resulttitle">Ваш ориентир по цене</h2>
+<div class="metric"><small>РАСЧЁТНАЯ СТОИМОСТЬ НОРМО-ЧАСА</small><strong id="hourprice">—</strong><p>При указанном объёме продаж часов и расходах. Цена округлена вверх до 10 ₽.</p></div>
+<div class="stats"><div class="stat"><span>Себестоимость часа</span><strong id="costhour">—</strong></div>
+<div class="stat"><span>Расходы за месяц</span><strong id="totalcost">—</strong></div>
+<div class="stat"><span>Выручка при такой цене</span><strong id="revenue">—</strong></div>
+<div class="stat"><span>Выручка минус расходы</span><strong id="profit">—</strong></div>
+<div class="stat" style="grid-column:1/-1"><span>Ориентир цены выбранной работы (без запчастей)</span><strong id="jobprice">—</strong></div></div>
+<p class="outputnote">Расчёт упрощённый: не учитывает непредвиденные расходы, налогообложение, разные категории работ и запчасти, если вы не включили их в расходы. Это не прогноз дохода.</p>
+<a class="cta" href="../index.html#editor">Составить бесплатную смету →</a>
+<p class="outputnote">Для учёта заказов и оплаты по ним: <a href="../index.html#product">посмотреть комплект PRO — 1 499 ₽</a>.</p>
+</section>
+</div>
+<article class="wrap article">
+<h2>Как правильно считать нормо-час в автосервисе</h2>
+<p><strong>Нормо-час</strong> — единица трудоёмкости работ. Он не обязательно равен времени по часам на стене: диагностика, обслуживание и ремонт могут иметь установленную нормативную длительность. Для грубой оценки тарифа важно знать, сколько таких часов мастерская действительно продаёт за месяц.</p>
+<p>Чтобы найти нижнюю границу тарифа, суммируйте все расходы за месяц и разделите на оплачиваемые нормо-часы. Получится себестоимость часа. Если нужно оставить часть выручки на прибыль, делите себестоимость на <strong>1 минус желаемая доля прибыли</strong>. Например, если расходы на месяц — 290 000 ₽, план продаж — 320 часов и целевая доля прибыли — 20%, расчётная цена составляет около 1 133 ₽ за час. После округления вверх до десятков получается 1 140 ₽.</p>
+<h2>Почему календарные часы дают ошибку</h2>
+<p>Механик может находиться в мастерской восемь часов, но часть времени занимают приёмка, уборка, поиск деталей, ожидание клиента и административная работа. Если вместо реально продаваемых 320 часов ошибочно подставить 500, полученная цена будет занижена, и тариф может не покрывать расходы. Ориентируйтесь на историю заказ-нарядов и фактически реализованные работы, а не на максимальную теоретическую загрузку.</p>
+<h2>Что ещё проверить перед изменением прайса</h2>
+<ul>
+<li>Отдельно оцените сложные виды ремонта, диагностику, электротехнические работы и расходные материалы.</li>
+<li>Проверьте, входят ли налоги, взносы, возвраты и гарантийные переделки в ваши расходы.</li>
+<li>Сопоставьте расчёт с ценами конкурентов и реальной готовностью клиентов платить.</li>
+<li>Ведите учёт заказов: дата, работы, плановое время, стоимость, полученная оплата и остаток.</li>
+</ul>
+<p>Для оформления результата клиенту используйте <a href="../index.html#editor">бесплатный конструктор сметы и заказ-наряда</a>. Для постоянного учёта доступен <a href="../index.html#product">комплект таблиц и шаблонов PRO</a>.</p>
+</article>
+</main>
+<footer><div class="wrap">СТОБланк · Бесплатный калькулятор без регистрации. <a href="../index.html">Главная</a> · <a href="../privacy.html">Конфиденциальность</a></div></footer>
+<script>
+(()=>{
+'use strict';
+const ids=['payroll','rent','other','hours','margin','jobhours'];
+const fmt=new Intl.NumberFormat('ru-RU',{maximumFractionDigits:0});
+const rub=n=>fmt.format(Math.round(n))+' ₽';
+function calculate(){
+ let data=Object.fromEntries(ids.map(id=>[id,Number(document.getElementById(id).value)]));
+ const error=document.getElementById('formerror');
+ const invalid=ids.some(id=>!Number.isFinite(data[id])||data[id]<0||document.getElementById(id).value.trim()==='')||
+ data.hours<=0||data.jobhours<=0||data.margin>=100||data.margin>90||
+ ['payroll','rent','other'].some(x=>data[x]>100000000);
+ if(invalid){
+  error.textContent='Проверьте поля: часы должны быть больше нуля, доля прибыли от 0 до 90%.';
+  ['hourprice','costhour','totalcost','revenue','profit','jobprice'].forEach(x=>document.getElementById(x).textContent='—');return;
+ }
+ error.textContent='';
+ const total=data.payroll+data.rent+data.other;
+ const cost=total/data.hours;
+ const suggested=Math.ceil(cost/(1-data.margin/100)/10)*10;
+ const revenue=suggested*data.hours;
+ const values={hourprice:rub(suggested),costhour:rub(cost),totalcost:rub(total),revenue:rub(revenue),profit:rub(revenue-total),jobprice:rub(suggested*data.jobhours)};
+ for(const [id,value] of Object.entries(values))document.getElementById(id).textContent=value;
+}
+ids.forEach(id=>document.getElementById(id).addEventListener('input',calculate));
+calculate();
+})();
+</script>
+</body></html>
