@@ -48,8 +48,37 @@ $('#print').addEventListener('click',()=>{
  window.print()
 });
 const y=$('#year');if(y)y.textContent=new Date().getFullYear();
-const f=$('#checkoutForm');if(f)f.addEventListener('submit',e=>e.preventDefault());
-const b=$('#buy');if(b)b.disabled=true;
-const n=$('#checkoutMessage');if(n)n.textContent='Платёжная система пока не подключена. Бесплатный конструктор работает.';
+// Покупатель отправляет запрос реквизитов напрямую со своего почтового приложения.
+// Ни номер карты, ни платежные данные на сайте не собираются.
+const orderEmail='ps.beletckii@gmail.com';
+const f=$('#checkoutForm');
+const n=$('#checkoutMessage');
+const copyButton=$('#copyRequest');
+function buildRequest(){
+ const email=$('#email').value.trim();
+ if(!f.reportValidity())return null;
+ const subject='СТОБланк PRO — запрос реквизитов для перевода';
+ const body='Здравствуйте!\\n\\nХочу заказать комплект «СТОБланк PRO» стоимостью 1 490 ₽.\\nПрошу прислать подтверждение возможности покупки, реквизиты для перевода, порядок получения кассового чека и ZIP-файла.\\n\\nМой email для ответа: '+email+'\\n\\nДо получения подтверждённых реквизитов оплату не произвожу.';
+ return {subject,body:body.replace(/\\n/g,'\\n')};
+}
+function showOrderMessage(message){if(n)n.textContent=message}
+if(f)f.addEventListener('submit',e=>{
+ e.preventDefault();
+ const req=buildRequest();if(!req)return;
+ const uri='mailto:'+orderEmail+'?subject='+encodeURIComponent(req.subject)+'&body='+encodeURIComponent(req.body);
+ showOrderMessage('Откройте подготовленное письмо и нажмите «Отправить» в своей почтовой программе. Открытие окна письма не означает, что заявка отправлена. Если почта не открылась, воспользуйтесь кнопкой «Скопировать текст заявки».');
+ window.location.href=uri;
+});
+if(copyButton)copyButton.addEventListener('click',async()=>{
+ const req=buildRequest();if(!req)return;
+ const text='Кому: '+orderEmail+'\\nТема: '+req.subject+'\\n\\n'+req.body;
+ try{
+   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('not supported');
+   await navigator.clipboard.writeText(text);
+   showOrderMessage('Текст заявки скопирован. Отправьте его самостоятельно на '+orderEmail+'. Реквизиты для перевода запрашивайте только у продавца.');
+ }catch(e){
+   showOrderMessage('Не получилось скопировать автоматически. Напишите на '+orderEmail+' с темой «'+req.subject+'».');
+ }
+});
 render()
 })();
