@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://stoblank-beta.onrender.com/sitemap.xml
