@@ -48,46 +48,79 @@ $('#print').addEventListener('click',()=>{
  window.print()
 });
 const y=$('#year');if(y)y.textContent=new Date().getFullYear();
-// Покупатель отправляет запрос реквизитов напрямую со своего почтового приложения.
-// Ни номер карты, ни платежные данные на сайте не собираются.
+// Ручной перевод: здесь нет платёжного процессинга и подтверждения зачисления.
 const orderEmail='ps.beletckii@gmail.com';
+const cardDigits='2204120200402929';
 const f=$('#checkoutForm');
 const n=$('#checkoutMessage');
 const copyButton=$('#copyRequest');
-function buildRequest(){
- const email=$('#email').value.trim();
- if(!f.reportValidity())return null;
- const subject='СТОБланк PRO — запрос реквизитов для перевода';
- const body=[
+const paidButton=$('#paidReport');
+const copyCardButton=$('#copyCard');
+const cardStatus=$('#cardCopyStatus');
+const lf=String.fromCharCode(10);
+function getBuyerEmail(){
+  if(!f||!f.reportValidity())return null;
+  return $('#email').value.trim();
+}
+function makeOrderRequest(){
+ const email=getBuyerEmail();if(!email)return null;
+ return {
+  subject:'СТОБланк PRO — запрос реквизитов для перевода',
+  body:[
    'Здравствуйте!',
    '',
-   'Хочу заказать комплект «СТОБланк PRO» стоимостью 1 490 ₽.',
-   'Прошу прислать подтверждение возможности покупки, реквизиты для перевода, порядок получения кассового чека и ZIP-файла.',
+   'Хочу приобрести комплект «СТОБланк PRO» за 1 490 ₽.',
+   'На сайте указана карта ЮMoney, последние цифры 2929.',
+   'Подтвердите, пожалуйста, возможность покупки, реквизиты получателя, условия выдачи чека и срок отправки ZIP.',
    '',
    'Мой email для ответа: '+email,
    '',
-   'До получения подтверждённых реквизитов оплату не произвожу.'
- ].join(String.fromCharCode(10));
- return {subject,body};
+   'Перевод выполню после вашего подтверждения.'
+  ].join(lf)
+ };
+}
+function makePaidNotice(){
+ const email=getBuyerEmail();if(!email)return null;
+ return {
+  subject:'СТОБланк PRO — сообщение о переводе (проверьте зачисление)',
+  body:[
+   'Здравствуйте!',
+   '',
+   'Сообщаю о переводе по заказу «СТОБланк PRO», сумма 1 490 ₽.',
+   'Получатель: карта ЮMoney, последние цифры 2929.',
+   'Дата перевода: [укажите дату]',
+   'Время перевода: [укажите время]',
+   'Мой email для ответа: '+email,
+   '',
+   'Пожалуйста, проверьте фактическое поступление средств и направьте информацию о выдаче чека и комплекта.',
+   'Не передаю CVV, пароли и коды подтверждения.'
+  ].join(lf)
+ };
 }
 function showOrderMessage(message){if(n)n.textContent=message}
-if(f)f.addEventListener('submit',e=>{
- e.preventDefault();
- const req=buildRequest();if(!req)return;
+function openEmail(req){
+ if(!req)return;
  const uri='mailto:'+orderEmail+'?subject='+encodeURIComponent(req.subject)+'&body='+encodeURIComponent(req.body);
- showOrderMessage('Откройте подготовленное письмо и нажмите «Отправить» в своей почтовой программе. Открытие окна письма не означает, что заявка отправлена. Если почта не открылась, воспользуйтесь кнопкой «Скопировать текст заявки».');
+ showOrderMessage('Откроется ваша почтовая программа. Обязательно нажмите «Отправить». Сайт не видит факт отправки письма и не проверяет оплату. Если почта не открылась, нажмите «Скопировать текст заявки».');
  window.location.href=uri;
-});
+}
+if(f)f.addEventListener('submit',e=>{e.preventDefault();openEmail(makeOrderRequest())});
+if(paidButton)paidButton.addEventListener('click',()=>openEmail(makePaidNotice()));
 if(copyButton)copyButton.addEventListener('click',async()=>{
- const req=buildRequest();if(!req)return;
- const text=['Кому: '+orderEmail,'Тема: '+req.subject,'',req.body].join(String.fromCharCode(10));
+ const req=makeOrderRequest();if(!req)return;
+ const data=['Кому: '+orderEmail,'Тема: '+req.subject,'',req.body].join(lf);
  try{
-   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('not supported');
-   await navigator.clipboard.writeText(text);
-   showOrderMessage('Текст заявки скопирован. Отправьте его самостоятельно на '+orderEmail+'. Реквизиты для перевода запрашивайте только у продавца.');
- }catch(e){
-   showOrderMessage('Не получилось скопировать автоматически. Напишите на '+orderEmail+' с темой «'+req.subject+'».');
- }
+   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('clipboard unavailable');
+   await navigator.clipboard.writeText(data);
+   showOrderMessage('Заявка скопирована. Отправьте её самостоятельно на '+orderEmail+'.');
+ }catch(e){showOrderMessage('Откройте письмо вручную на '+orderEmail+' с темой «'+req.subject+'».')}
+});
+if(copyCardButton)copyCardButton.addEventListener('click',async()=>{
+ try{
+   if(!navigator.clipboard||!navigator.clipboard.writeText)throw new Error('clipboard unavailable');
+   await navigator.clipboard.writeText(cardDigits);
+   if(cardStatus)cardStatus.textContent='Номер карты скопирован. Перед переводом согласуйте заказ с продавцом.';
+ }catch(e){if(cardStatus)cardStatus.textContent='Автокопирование недоступно. Перепишите номер с экрана (16 цифр).'}
 });
 render()
 })();
